@@ -54,6 +54,17 @@ WHERE id NOT IN (
   WHERE EXTRACT(YEAR FROM al.release) = 2020
 );
 
+-- or(?):
+SELECT name_artist
+FROM artist_list
+WHERE id NOT IN (
+    SELECT artist_id
+    FROM artist_list 
+    JOIN artists_albums aa ON name_artist = name_artist
+    JOIN albums al ON aa.albums_id = al.id
+    WHERE EXTRACT(YEAR FROM release) = 2020
+);
+
 SELECT DISTINCT collected_name
 FROM collected c
 JOIN tracks_collected tic ON c.id = tic.collected_id
